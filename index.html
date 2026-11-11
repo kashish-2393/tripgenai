@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>TripGenie AI | Smart Travel Planner</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <header class="navbar">
+        <h2>✈ TripGenie AI</h2>
+        <span>Smart Travel Planning</span>
+    </header>
+
+    <main class="container">
+
+        <section class="hero">
+            <p class="tagline">YOUR PERSONAL AI TRAVEL COMPANION</p>
+
+            <h1>Explore More.<br>Plan Less.</h1>
+
+            <p>
+                Let AI create your personalized travel itinerary
+                according to your budget and interests.
+            </p>
+        </section>
+
+        <section class="form-container">
+
+            <h2>Plan Your Next Trip</h2>
+
+            {% if error %}
+                <div class="error">{{ error }}</div>
+            {% endif %}
+
+            <form action="/generate-trip" method="POST" id="tripForm">
+
+                <div class="form-group">
+                    <label>Starting City</label>
+                    <input type="text"
+                           name="origin"
+                           placeholder="Example: Delhi"
+                           required>
+                </div>
+
+                <div class="form-group">
+                    <label>Destination</label>
+                    <input type="text"
+                           name="destination"
+                           placeholder="Example: Manali"
+                           required>
+                </div>
+
+                <div class="form-row">
+
+                    <div class="form-group">
+                        <label>Start Date</label>
+                        <input type="date"
+                               name="start_date"
+                               id="start_date"
+                               required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>End Date</label>
+                        <input type="date"
+                               name="end_date"
+                               id="end_date"
+                               required>
+                    </div>
+
+                </div>
+
+                <div class="form-row">
+
+                    <div class="form-group">
+                        <label>Total Budget (₹)</label>
+                        <input type="number"
+                               name="budget"
+                               placeholder="Example: 15000"
+                               min="1"
+                               required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Number of Travellers</label>
+                        <input type="number"
+                               name="travellers"
+                               min="1"
+                               value="2"
+                               required>
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <label>Travel Style</label>
+
+                    <select name="travel_style">
+                        <option>Budget</option>
+                        <option selected>Balanced</option>
+                        <option>Luxury</option>
+                        <option>Adventure</option>
+                        <option>Relaxation</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>What interests you?</label>
+
+                    <div class="interests">
+
+                        <label>
+                            <input type="checkbox"
+                                   name="interests"
+                                   value="Adventure">
+                            Adventure
+                        </label>
+
+                        <label>
+                            <input type="checkbox"
+                                   name="interests"
+                                   value="Nature">
+                            Nature
+                        </label>
+
+                        <label>
+                            <input type="checkbox"
+                                   name="interests"
+                                   value="Food">
+                            Food
+                        </label>
+
+                        <label>
+                            <input type="checkbox"
+                                   name="interests"
+                                   value="Shopping">
+                            Shopping
+                        </label>
+
+                        <label>
+                            <input type="checkbox"
+                                   name="interests"
+                                   value="History">
+                            History
+                        </label>
+
+                        <label>
+                            <input type="checkbox"
+                                   name="interests"
+                                   value="Sightseeing">
+                            Sightseeing
+                        </label>
+
+                    </div>
+                </div>
+
+                <button type="submit" class="generate-btn" id="generateBtn">
+                    Generate My Trip ✨
+                </button>
+                <div id="loadingScreen" class="loading-screen">
+                    <div class="loader"></div>
+                    <h2>Planning your adventure...</h2>
+                    <p>TripGenie AI is creating your personalized itinerary.</p>
+                    <p class="loading-note">This may take a little while. Please don't refresh.</p>
+                </div>
+
+            </form>
+
+        </section>
+
+    </main>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+</html>
